@@ -5,8 +5,10 @@ import com.nicolasrf.moviesapp.R
 import com.nicolasrf.moviesapp.data.matcher.EmailMatcherImpl
 import com.nicolasrf.moviesapp.data.remote.RemoteService
 import com.nicolasrf.moviesapp.data.repository.AuthenticationRepositoryImpl
+import com.nicolasrf.moviesapp.data.repository.MoviesRepositoryImpl
 import com.nicolasrf.moviesapp.domain.matcher.EmailMatcher
 import com.nicolasrf.moviesapp.domain.repository.AuthenticationRepository
+import com.nicolasrf.moviesapp.domain.repository.MoviesRepository
 import com.nicolasrf.moviesapp.usecases.LoginUseCases
 import com.nicolasrf.moviesapp.usecases.LoginWithEmailUseCase
 import com.nicolasrf.moviesapp.usecases.LogoutUseCase
@@ -31,6 +33,12 @@ object AppModule {
     @Singleton
     fun provideAuthenticationRepository(): AuthenticationRepository {
         return AuthenticationRepositoryImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMoviesRepository(@ApiKey apiKey: String, remoteService: RemoteService): MoviesRepository {
+        return MoviesRepositoryImpl(apiKey,remoteService)
     }
 
     @Provides

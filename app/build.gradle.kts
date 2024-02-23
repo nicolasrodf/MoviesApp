@@ -77,4 +77,12 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    // Retrofit
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    //Gson
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }

@@ -1,6 +1,9 @@
 package com.nicolasrf.moviesapp.di
 
+import android.app.Application
+import com.nicolasrf.moviesapp.R
 import com.nicolasrf.moviesapp.data.matcher.EmailMatcherImpl
+import com.nicolasrf.moviesapp.data.remote.RemoteService
 import com.nicolasrf.moviesapp.data.repository.AuthenticationRepositoryImpl
 import com.nicolasrf.moviesapp.domain.matcher.EmailMatcher
 import com.nicolasrf.moviesapp.domain.repository.AuthenticationRepository
@@ -13,6 +16,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -48,5 +56,33 @@ object AppModule {
     @Singleton
     fun provideLogoutUseCase(repository: AuthenticationRepository): LogoutUseCase {
         return LogoutUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    @ApiKey
+    fun provideApiKey(app: Application): String = app.getString(R.string.api_key)
+
+    @Provides
+    @Singleton
+    @ApiUrl
+    fun provideApiUrl(): String = "https://api.themoviedb.org/3/"
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient = HttpLoggingInterceptor().run {
+        level = HttpLoggingInterceptor.Level.BODY
+        OkHttpClient.Builder().addInterceptor(this).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteService(@ApiUrl apiUrl: String, okHttpClient: OkHttpClient): RemoteService {
+        return Retrofit.Builder()
+            .baseUrl(apiUrl)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create()
     }
 }

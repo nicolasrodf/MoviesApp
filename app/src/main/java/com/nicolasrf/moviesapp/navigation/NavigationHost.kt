@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.nicolasrf.moviesapp.ui.authentication.login.LoginScreen
+import com.nicolasrf.moviesapp.ui.home.HomeScreen
 
 @Composable
 fun NavigationHost(
@@ -15,13 +16,13 @@ fun NavigationHost(
     NavHost(navController = navHostController, startDestination = startDestination.route) {
         composable(NavigationRoute.Login.route) {
             LoginScreen(onLogin = {
-                    navHostController.popBackStack()
-                    navHostController.navigate(NavigationRoute.Home.route)
-                }
+                navHostController.popBackStack()
+                navHostController.navigate(NavigationRoute.Home.route)
+            }
             )
         }
         composable(NavigationRoute.Home.route) {
-            Text(text = "Home")
+            HomeScreen()
         }
     }
 }

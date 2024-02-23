@@ -10,6 +10,7 @@ import com.nicolasrf.moviesapp.ui.util.PasswordErrorParser
 import com.nicolasrf.moviesapp.usecases.LoginUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,18 +61,21 @@ class LoginViewModel @Inject constructor(
                 isLoading = true
             )
             viewModelScope.launch(dispatcher) {
-                loginUseCases.loginWithEmailUseCase(state.email, state.password).onSuccess {
+                loginUseCases.loginWithEmailUseCase(state.email, state.password).collectLatest {
+                    it.onSuccess {
+                        state = state.copy(
+                            isLoggedIn = true,
+                            authError = null
+                        )
+                    }.onFailure { error ->
+                        state = state.copy(
+                            authError = error.message
+                        )
+                    }
                     state = state.copy(
-                        isLoggedIn = true
-                    )
-                }.onFailure {
-                    state = state.copy(
-                        emailError = it.message
+                        isLoading = false
                     )
                 }
-                state = state.copy(
-                    isLoading = false
-                )
             }
         }
     }

@@ -12,13 +12,17 @@ import com.nicolasrf.moviesapp.ui.authentication.login.components.LoginForm
 @Composable
 fun LoginScreen(
     onLogin: () -> Unit,
+    onAuthError: (String) -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
 
-    LaunchedEffect(state.isLoggedIn) {
+    LaunchedEffect(state.isLoggedIn, state.authError) {
         if (state.isLoggedIn) {
             onLogin()
+        }
+        state.authError?.let {
+            onAuthError(it)
         }
     }
 

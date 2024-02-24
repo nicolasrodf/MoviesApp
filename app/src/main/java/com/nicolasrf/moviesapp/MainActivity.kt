@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.nicolasrf.moviesapp.navigation.NavigationHost
 import com.nicolasrf.moviesapp.navigation.NavigationRoute
-import com.nicolasrf.moviesapp.ui.theme.MoviesAppTheme
+import com.nicolasrf.moviesapp.presentation.theme.MoviesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.authentication.login.components
+package com.nicolasrf.moviesapp.presentation.authentication.login.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,17 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nicolasrf.moviesapp.ui.authentication.login.LoginEvent
-import com.nicolasrf.moviesapp.ui.authentication.login.LoginState
+import com.nicolasrf.moviesapp.presentation.authentication.login.LoginEvent
+import com.nicolasrf.moviesapp.presentation.authentication.login.LoginState
 
 @Composable
 fun LoginForm(

@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.theme
+package com.nicolasrf.moviesapp.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

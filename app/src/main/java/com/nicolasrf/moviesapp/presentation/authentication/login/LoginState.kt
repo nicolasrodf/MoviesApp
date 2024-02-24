@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.authentication.login
+package com.nicolasrf.moviesapp.presentation.authentication.login
 
 data class LoginState(
     val email: String = "",

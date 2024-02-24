@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.home
+package com.nicolasrf.moviesapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.authentication.login
+package com.nicolasrf.moviesapp.presentation.authentication.login
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicolasrf.moviesapp.core.di.IoDispatcher
-import com.nicolasrf.moviesapp.ui.util.PasswordErrorParser
+import com.nicolasrf.moviesapp.presentation.util.PasswordErrorParser
 import com.nicolasrf.moviesapp.usecases.LoginUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

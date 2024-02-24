@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.authentication.login
+package com.nicolasrf.moviesapp.presentation.authentication.login
 
 sealed interface LoginEvent {
     data class EmailChange(val email: String) : LoginEvent

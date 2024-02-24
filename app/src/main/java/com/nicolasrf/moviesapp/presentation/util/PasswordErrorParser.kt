@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.util
+package com.nicolasrf.moviesapp.presentation.util
 
 import com.nicolasrf.moviesapp.usecases.PasswordResult
 

@@ -1,13 +1,11 @@
 package com.nicolasrf.moviesapp.navigation
 
-import android.widget.Toast
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.nicolasrf.moviesapp.ui.authentication.login.LoginScreen
-import com.nicolasrf.moviesapp.ui.home.HomeScreen
+import com.nicolasrf.moviesapp.presentation.authentication.login.LoginScreen
+import com.nicolasrf.moviesapp.presentation.home.HomeScreen
 
 @Composable
 fun NavigationHost(
@@ -26,7 +24,9 @@ fun NavigationHost(
             )
         }
         composable(NavigationRoute.Home.route) {
-            HomeScreen()
+            HomeScreen(onMovieClick = {
+
+            })
         }
     }
 }

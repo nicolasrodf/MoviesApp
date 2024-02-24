@@ -1,4 +1,4 @@
-package com.nicolasrf.moviesapp.ui.authentication.login.components
+package com.nicolasrf.moviesapp.presentation.authentication.login.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

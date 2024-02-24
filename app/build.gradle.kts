@@ -73,7 +73,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     //Hilt
     implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -81,7 +81,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
     //Gson
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -89,4 +89,13 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:1.1.3")
     //Coil compose
     implementation("io.coil-kt:coil-compose:2.2.2")
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-compose:3.2.1")
+    // Room
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
+
 }

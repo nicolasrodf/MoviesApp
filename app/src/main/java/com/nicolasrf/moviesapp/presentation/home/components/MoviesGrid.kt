@@ -4,15 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import com.nicolasrf.moviesapp.domain.model.Movie
 
 @Composable
 fun MoviesGrid(
-    movies: List<Movie>,
+    state: LazyPagingItems<Movie>,
     onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -23,11 +25,18 @@ fun MoviesGrid(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         contentPadding = PaddingValues(4.dp)
     ) {
-        items(movies) {
-            MovieItem(
-                movie = it,
-                onMovieClick = { onMovieClick(it) }
-            )
+        items(state.itemCount) { index ->
+            state[index]?.let{
+                MovieItem(
+                    movie = it,
+                    onMovieClick = { onMovieClick(it) }
+                )
+            }
+        }
+        item {
+            if(state.loadState.append is LoadState.Loading) {
+                CircularProgressIndicator()
+            }
         }
     }
 }

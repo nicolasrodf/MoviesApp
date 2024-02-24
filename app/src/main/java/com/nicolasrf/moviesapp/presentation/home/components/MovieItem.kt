@@ -15,10 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
+import com.nicolasrf.moviesapp.R
 import com.nicolasrf.moviesapp.domain.model.Movie
+import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun MovieItem(movie: Movie, onMovieClick: () -> Unit) {
@@ -28,8 +33,19 @@ fun MovieItem(movie: Movie, onMovieClick: () -> Unit) {
             .clickable { onMovieClick() }
     ) {
         Box {
+            val imageRequest = ImageRequest.Builder(LocalContext.current)
+                .data(movie.posterPath)
+                .dispatcher(Dispatchers.IO)
+                .memoryCacheKey(movie.posterPath)
+                .diskCacheKey(movie.posterPath)
+                .placeholder(R.drawable.movie_placeholder)
+                .error(R.drawable.movie_placeholder)
+                .fallback(R.drawable.movie_placeholder)
+                .diskCachePolicy(CachePolicy.ENABLED)
+                .memoryCachePolicy(CachePolicy.ENABLED)
+                .build()
             AsyncImage(
-                model = movie.posterPath,
+                model = imageRequest,
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

@@ -11,7 +11,7 @@ import com.nicolasrf.moviesapp.presentation.home.HomeScreen
 fun NavigationHost(
     navHostController: NavHostController,
     startDestination: NavigationRoute,
-    onAuthError: (String) -> Unit,
+    onServerError: (String) -> Unit
 ) {
     NavHost(navController = navHostController, startDestination = startDestination.route) {
         composable(NavigationRoute.Login.route) {
@@ -19,13 +19,15 @@ fun NavigationHost(
                     navHostController.popBackStack()
                     navHostController.navigate(NavigationRoute.Home.route)
                 }, onAuthError = {
-                    onAuthError(it)
+                    onServerError(it)
                 }
             )
         }
         composable(NavigationRoute.Home.route) {
             HomeScreen(onMovieClick = {
 
+            }, onPagingError = {
+                onServerError(it)
             })
         }
     }

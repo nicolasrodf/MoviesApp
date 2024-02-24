@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     NavigationHost(
                         navHostController = navController,
                         startDestination = getStartDestination(),
-                        onAuthError = {
+                        onServerError = {
                             Toast.makeText(this,it,Toast.LENGTH_LONG).show()
                         }
                     )

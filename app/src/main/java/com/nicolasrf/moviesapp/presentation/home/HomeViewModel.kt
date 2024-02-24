@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
+    getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
 ) : ViewModel() {
 
     val moviesPagingFlow = getUpcomingMoviesUseCase().cachedIn(viewModelScope)

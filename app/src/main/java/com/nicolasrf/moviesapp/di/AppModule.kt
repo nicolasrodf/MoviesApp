@@ -14,8 +14,10 @@ import com.nicolasrf.moviesapp.data.matcher.EmailMatcherImpl
 import com.nicolasrf.moviesapp.data.remote.MovieRemoteMediator
 import com.nicolasrf.moviesapp.data.remote.RemoteService
 import com.nicolasrf.moviesapp.data.repository.AuthenticationRepositoryImpl
+import com.nicolasrf.moviesapp.data.repository.MoviesRepositoryImpl
 import com.nicolasrf.moviesapp.domain.matcher.EmailMatcher
 import com.nicolasrf.moviesapp.domain.repository.AuthenticationRepository
+import com.nicolasrf.moviesapp.domain.repository.MoviesRepository
 import com.nicolasrf.moviesapp.usecases.GetUpcomingMoviesUseCase
 import com.nicolasrf.moviesapp.usecases.LoginUseCases
 import com.nicolasrf.moviesapp.usecases.LoginWithEmailUseCase
@@ -141,7 +143,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUpcomingMoviesUseCase(pager: Pager<Int, MovieEntity>): GetUpcomingMoviesUseCase {
-        return GetUpcomingMoviesUseCase(pager)
+    fun provideMoviesRepository(pager: Pager<Int, MovieEntity>): MoviesRepository {
+        return MoviesRepositoryImpl(pager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpcomingMoviesUseCase(moviesRepository: MoviesRepository): GetUpcomingMoviesUseCase {
+        return GetUpcomingMoviesUseCase(moviesRepository)
     }
 }

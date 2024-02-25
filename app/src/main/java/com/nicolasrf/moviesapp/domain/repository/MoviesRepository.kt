@@ -1,11 +1,10 @@
 package com.nicolasrf.moviesapp.domain.repository
 
-import arrow.core.Either
+import androidx.paging.PagingData
 import com.nicolasrf.moviesapp.domain.model.Movie
-import com.nicolasrf.moviesapp.domain.model.Error
+import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
-
-    suspend fun findUpcomingMovies(page: Int): Either<Error, List<Movie>>
-
+    fun findUpcomingMovies(): Flow<PagingData<Movie>>
+    fun findById(id: Int): Flow<Movie>
 }

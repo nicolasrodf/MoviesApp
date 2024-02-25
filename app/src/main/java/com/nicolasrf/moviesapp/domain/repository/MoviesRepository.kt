@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
     fun findUpcomingMovies(): Flow<PagingData<Movie>>
+    fun findById(id: Int): Flow<Movie>
 }

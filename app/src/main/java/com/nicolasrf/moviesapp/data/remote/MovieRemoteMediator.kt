@@ -7,7 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.nicolasrf.moviesapp.data.local.MovieDatabase
 import com.nicolasrf.moviesapp.data.local.MovieEntity
-import com.nicolasrf.moviesapp.data.mappers.toMovieEntity
+import com.nicolasrf.moviesapp.data.mappers.toEntityModel
 import com.nicolasrf.moviesapp.di.ApiKey
 import retrofit2.HttpException
 import java.io.IOException
@@ -49,7 +49,7 @@ class MovieRemoteMediator @Inject constructor(
                 if(loadType == LoadType.REFRESH) {
                     movieDb.movieDao().clearAll()
                 }
-                val movieEntities = movies.results.map { it.toMovieEntity() }
+                val movieEntities = movies.results.map { it.toEntityModel() }
                 movieDb.movieDao().insertAll(movieEntities)
             }
 

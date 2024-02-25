@@ -4,9 +4,8 @@ import com.nicolasrf.moviesapp.data.local.MovieEntity
 import com.nicolasrf.moviesapp.data.remote.RemoteMovie
 import com.nicolasrf.moviesapp.domain.model.Movie
 
-fun RemoteMovie.toMovieEntity(): MovieEntity =
+fun RemoteMovie.toEntityModel(): MovieEntity =
     MovieEntity(
-        movieId = id,
         title = title,
         overview = overview,
         releaseDate =  releaseDate,
@@ -15,9 +14,9 @@ fun RemoteMovie.toMovieEntity(): MovieEntity =
     )
 
 
-fun MovieEntity.toMovie(): Movie =
+fun MovieEntity.toDomainModel(): Movie =
     Movie(
-        movieId,
+        id,
         title,
         overview,
         releaseDate,

@@ -8,6 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.nicolasrf.moviesapp.R
+import com.nicolasrf.moviesapp.data.local.MovieDao
 import com.nicolasrf.moviesapp.data.local.MovieDatabase
 import com.nicolasrf.moviesapp.data.local.MovieEntity
 import com.nicolasrf.moviesapp.data.matcher.EmailMatcherImpl
@@ -143,8 +144,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMoviesRepository(pager: Pager<Int, MovieEntity>): MoviesRepository {
-        return MoviesRepositoryImpl(pager)
+    fun provideMoviesRepository(pager: Pager<Int, MovieEntity>, movieDao: MovieDao): MoviesRepository {
+        return MoviesRepositoryImpl(pager, movieDao)
     }
 
     @Provides

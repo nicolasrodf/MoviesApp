@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
@@ -15,6 +16,9 @@ interface MovieDao {
 
     @Upsert
     suspend fun upsertAll(movies: List<MovieEntity>)
+
+    @Query("SELECT * FROM MovieEntity WHERE id = :id")
+    fun findById(id: Int): Flow<MovieEntity>
 
     @Query("SELECT * FROM movieentity")
     fun pagingSource(): PagingSource<Int, MovieEntity>

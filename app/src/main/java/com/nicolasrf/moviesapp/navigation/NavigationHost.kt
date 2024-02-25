@@ -54,6 +54,12 @@ fun NavigationHost(
             }) {
             HomeScreen(onMovieClick = {
                 navHostController.navigate(NavigationRoute.Detail.createRoute(it.id))
+            }, onLogout = {
+                navHostController.navigate(NavigationRoute.Login.route) {
+                    popUpTo(navHostController.graph.id) {
+                        inclusive = true
+                    }
+                }
             }, onPagingError = {
                 onServerError(it)
             })

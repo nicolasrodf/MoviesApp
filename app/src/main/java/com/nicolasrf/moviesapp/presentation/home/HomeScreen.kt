@@ -1,9 +1,12 @@
 package com.nicolasrf.moviesapp.presentation.home
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -26,35 +29,42 @@ import com.nicolasrf.moviesapp.presentation.home.components.MoviesGrid
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onMovieClick: (Movie) -> Unit,
-    onPagingError: (String) -> Unit
+    onPagingError: (String) -> Unit,
+    onLogout: () -> Unit
 ) {
 
-    val state = viewModel.moviesPagingFlow.collectAsLazyPagingItems()
+    val pagingState = viewModel.moviesPagingFlow.collectAsLazyPagingItems()
+    val vmState = viewModel.state
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = state.loadState) {
-        if(state.loadState.refresh is LoadState.Error) {
+    LaunchedEffect(key1 = pagingState.loadState, key2 = vmState.isLogout) {
+        if(pagingState.loadState.refresh is LoadState.Error) {
             onPagingError(
-                (state.loadState.refresh as LoadState.Error).error.toError().toUiString(context)
+                (pagingState.loadState.refresh as LoadState.Error).error.toError().toUiString(context)
             )
         }
-        if(state.loadState.append is LoadState.Error) {
+        if(pagingState.loadState.append is LoadState.Error) {
             onPagingError(
-                (state.loadState.append as LoadState.Error).error.toError().toUiString(context)
+                (pagingState.loadState.append as LoadState.Error).error.toError().toUiString(context)
             )
+        }
+        if (vmState.isLogout) {
+            onLogout()
         }
     }
 
     Scaffold(
-        topBar = { MainTopAppBar() }
+        topBar = { MainTopAppBar(onLogout = {
+            viewModel.onEvent(HomeEvent.Logout)
+        }) }
     ) { padding ->
 
-        if (state.loadState.refresh is LoadState.Loading) {
+        if (pagingState.loadState.refresh is LoadState.Loading) {
             Loading(modifier = Modifier.padding(padding))
         }
 
         MoviesGrid(
-            state = state,
+            state = pagingState,
             onMovieClick = onMovieClick,
             modifier = Modifier.padding(padding)
         )
@@ -70,6 +80,15 @@ fun Error.toUiString(context: Context) = when (this) {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun MainTopAppBar() {
-    TopAppBar(title = { Text(stringResource(id = R.string.app_name)) })
+private fun MainTopAppBar(
+    onLogout: () -> Unit
+) {
+    TopAppBar(
+        title = { Text(stringResource(id = R.string.app_name)) },
+        actions = {
+            IconButton(onClick = { onLogout() }) {
+                Icon(Icons.Default.ExitToApp, "exit menu")
+            }
+        }
+    )
 }
